@@ -55,7 +55,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/store/get-store/${storeId}`);
+        const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/store/get-store/${storeId}`);
         if (response.data.status === "OK") {
           setStore(response.data.data);
         } else {
@@ -68,7 +68,7 @@ const Menu = () => {
 
     const fetchProductsData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/product/get-products-by-store/${storeId}`);
+        const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/product/get-products-by-store/${storeId}`);
         if (response.data.status === "OK") {
           setProducts(response.data.data);
         } else {

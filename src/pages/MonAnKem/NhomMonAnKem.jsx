@@ -16,7 +16,7 @@ const NhomMonAnKem = () => {
 
     const fetchToppingGroups = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/api/toppingGroup/getalltopping-group/${storeId}`);
+            const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/toppingGroup/getalltopping-group/${storeId}`);
             setToppingGroups(response.data.data);
         } catch (error) {
             console.error('Error fetching topping groups:', error);
@@ -26,7 +26,7 @@ const NhomMonAnKem = () => {
 
     const handleAddToppingGroup = async () => {
         try {
-            await axios.post(`http://localhost:3001/api/toppingGroup/addtopping-group/${storeId}`, {
+            await axios.post(`https://order-app-88-037717b27b20.herokuapp.com/api/toppingGroup/addtopping-group/${storeId}`, {
                 toppingGroupName: newToppingGroupName
             });
             fetchToppingGroups();
@@ -38,7 +38,7 @@ const NhomMonAnKem = () => {
 
     const handleUpdateToppingGroup = async (id) => {
         try {
-            await axios.put(`http://localhost:3001/api/toppingGroup/updatetopping-group/${id}`, {
+            await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/toppingGroup/updatetopping-group/${id}`, {
                 toppingGroupName: editToppingGroupName
             });
             fetchToppingGroups();
@@ -53,7 +53,7 @@ const NhomMonAnKem = () => {
         const confirmDelete = window.confirm("Bạn có muốn xóa nhóm topping này không?");
         if (confirmDelete) {
             try {
-                await axios.delete(`http://localhost:3001/api/toppingGroup/deletetopping-group/${id}`);
+                await axios.delete(`https://order-app-88-037717b27b20.herokuapp.com/api/toppingGroup/deletetopping-group/${id}`);
                 fetchToppingGroups();
             } catch (error) {
                 console.error('Error deleting topping group:', error);

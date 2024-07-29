@@ -12,10 +12,10 @@ const HomeStore = () => {
     useEffect(() => {
         const fetchStore = async () => {
             try {
-                const storeResponse = await axios.get(`http://localhost:3001/api/store/get-store/${storeId}`);
+                const storeResponse = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/store/get-store/${storeId}`);
                 setStore(storeResponse.data.data);
     
-                const productResponse = await axios.get(`http://localhost:3001/api/product/get-products-by-store/${storeId}`);
+                const productResponse = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/product/get-products-by-store/${storeId}`);
                 setProducts(productResponse.data.data);
     
                 setLoading(false);
@@ -53,7 +53,7 @@ const HomeStore = () => {
         const confirmDelete = window.confirm("Bạn có muốn xóa món ăn này không?");
         if (confirmDelete) {
             try {
-                await axios.delete(`http://localhost:3001/api/product/delete-product/${productId}`);
+                await axios.delete(`https://order-app-88-037717b27b20.herokuapp.com/api/product/delete-product/${productId}`);
                 setProducts(products.filter(product => product._id !== productId));
             } catch (error) {
                 console.error('Error deleting product:', error);

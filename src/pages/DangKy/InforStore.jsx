@@ -44,7 +44,7 @@ const InforStore = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/store/sign-up-store', formData);
+      const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/store/sign-up-store', formData);
 
       if (response.data.status === 'OK') {
         toast.success('Tạo cửa hàng thành công!', {

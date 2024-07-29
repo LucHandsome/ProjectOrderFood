@@ -22,7 +22,7 @@ const PasswordPage = () => {
 
         try {
             const email = location.state.email;
-            const response = await axios.post('http://localhost:3001/api/user/sign-up', {
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/user/sign-up', {
                 email,
                 password,
                 confirmPassword

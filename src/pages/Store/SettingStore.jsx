@@ -22,7 +22,7 @@ const SettingStore = () => {
                 Store_status: storeStatus
             };
 
-            const response = await axios.put(`http://localhost:3001/api/store/update-store/${storeId}`, formData);
+            const response = await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/store/update-store/${storeId}`, formData);
 
             if (response.data.status === 'OK') {
                 toast.success('Cập nhật cửa hàng thành công!', {

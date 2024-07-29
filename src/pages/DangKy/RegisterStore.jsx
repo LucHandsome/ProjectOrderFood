@@ -14,7 +14,7 @@ const RegisterStore = () => {
     const fetchStores = async () => {
       try {
         // Lấy danh sách cửa hàng của userId từ query params
-        const response = await axios.get(`http://localhost:3001/api/store/getall-stores/${userId}`, {
+        const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/store/getall-stores/${userId}`, {
           params: { userId }
         });
         setStores(response.data.data);

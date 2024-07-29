@@ -24,11 +24,11 @@ const LoaiMonAnKem = () => {
             }
 
             try {
-                const toppingGroupResponse = await axios.get(`http://localhost:3001/api/toppingGroup/get-toppingGroup-by-id/${ToppingGroupID}`);
+                const toppingGroupResponse = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/toppingGroup/get-toppingGroup-by-id/${ToppingGroupID}`);
                 console.log('Topping Group Data:', toppingGroupResponse.data.data);
                 setToppingGroup(toppingGroupResponse.data.data);
 
-                const toppingResponse = await axios.get(`http://localhost:3001/api/topping/get-topping-by-group/${ToppingGroupID}`);
+                const toppingResponse = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/topping/get-topping-by-group/${ToppingGroupID}`);
                 console.log('Toppings Data:', toppingResponse.data.data);
                 setToppings(toppingResponse.data.data);
 
@@ -63,7 +63,7 @@ const LoaiMonAnKem = () => {
         const confirmDelete = window.confirm("Bạn có muốn xóa loại topping này không?");
         if (confirmDelete) {
             try {
-                await axios.delete(`http://localhost:3001/api/topping/delete-topping/${toppingId}`);
+                await axios.delete(`https://order-app-88-037717b27b20.herokuapp.com/api/topping/delete-topping/${toppingId}`);
                 setToppings(toppings.filter(topping => topping._id !== toppingId));
                 toast.success('Topping đã được xóa thành công!');
             } catch (error) {
@@ -84,11 +84,11 @@ const LoaiMonAnKem = () => {
             console.log("Submitting payload:", payload);
 
             if (formMode === 'create') {
-                const response = await axios.post(`http://localhost:3001/api/topping/add-topping/${ToppingGroupID}`, payload);
+                const response = await axios.post(`https://order-app-88-037717b27b20.herokuapp.com/api/topping/add-topping/${ToppingGroupID}`, payload);
                 setToppings(prevToppings => [...prevToppings, response.data.data]);
                 toast.success('Topping đã được thêm thành công!');
             } else if (formMode === 'edit' && currentTopping) {
-                await axios.put(`http://localhost:3001/api/topping/update-topping/${currentTopping._id}`, { toppingName });
+                await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/topping/update-topping/${currentTopping._id}`, { toppingName });
                 setToppings(prevToppings => 
                     prevToppings.map(topping => 
                         topping._id === currentTopping._id ? { ...topping, toppingName } : topping

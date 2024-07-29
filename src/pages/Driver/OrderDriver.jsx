@@ -6,7 +6,7 @@ const OrderDriver = ({ driverId }) => {
     useEffect(() => {
         const fetchNewOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/order/pending-orders');
+                const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/order/pending-orders');
                 if (response.data.status === 'OK') {
                     setOrders(response.data.data);
                 } else {
@@ -22,7 +22,7 @@ const OrderDriver = ({ driverId }) => {
 
     const handleConfirm = async (orderId) => {
         try {
-            const response = await axios.put(`http://localhost:3001/api/order/update-order/${orderId}`, {
+            const response = await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/order/update-order/${orderId}`, {
                 status: 'Đã nhận đơn',
                 driverId
             });

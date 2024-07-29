@@ -22,7 +22,7 @@ const AddProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const storeResponse = await axios.get(`http://localhost:3001/api/store/get-store/${storeId}`);
+                const storeResponse = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/store/get-store/${storeId}`);
                 console.log("Store data:", storeResponse.data); // Kiểm tra dữ liệu cửa hàng
                 setStore(storeResponse.data.data);
                 setLoading(false);
@@ -57,7 +57,7 @@ const AddProduct = () => {
         };
       
         try {
-            const response = await axios.post('http://localhost:3001/api/product/create-product', formData);
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/product/create-product', formData);
       
             if (response.data.status === 'OK') {
                 toast.success('Tạo món ăn thành công!', {

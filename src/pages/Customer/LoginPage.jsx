@@ -13,7 +13,7 @@ const LoginPage = () => {
         setLoading(true);
     
         try {
-            const response = await axios.post('http://localhost:3001/api/customers/sign-in', { email, password });
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in', { email, password });
             
             if (response.data.token) {
                 toast.success('Đăng nhập thành công!');

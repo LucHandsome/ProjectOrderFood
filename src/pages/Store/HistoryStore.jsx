@@ -7,7 +7,7 @@ const HistoryStore = ({ storeId }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/order/orderstore2', {
+                const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/order/orderstore2', {
                     params: {
                         storeId: storeId,
                         status: 'Hoàn thành'

@@ -41,7 +41,7 @@ const DriverRegister = () => {
     console.log('Payload:', payload);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/driver/signup', payload);
+      const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/driver/signup', payload);
 
       if (response.data.status === 'OK') {
         alert('Đăng ký thành công');

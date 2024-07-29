@@ -7,7 +7,7 @@ const HistoryOrder = ({ driverId }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/order/orders2', {
+                const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/order/orders2', {
                     params: {
                         driverId: driverId,
                         status: 'Hoàn thành'

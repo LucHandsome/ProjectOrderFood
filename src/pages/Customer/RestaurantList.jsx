@@ -23,7 +23,7 @@ const RestaurantList = () => {
 
       if (customerId) {
         try {
-          const response = await axios.get(`http://localhost:3001/api/customers/${customerId}`);
+          const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/customers/${customerId}`);
           console.log("Response từ API là:", response);
 
           if (response.status === 200 && response.data.data) {
@@ -41,7 +41,7 @@ const RestaurantList = () => {
 
     const fetchStores = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/store/stores');
+        const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/store/stores');
         if (response.data.status === 'OK') {
           setStores(response.data.data);
           setFilteredStores(response.data.data);

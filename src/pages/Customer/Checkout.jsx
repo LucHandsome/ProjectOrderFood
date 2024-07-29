@@ -23,7 +23,7 @@ const CheckOut = () => {
             const customerId = localStorage.getItem('customerId');
             if (customerId) {
                 try {
-                    const response = await axios.get(`http://localhost:3001/api/customers/${customerId}`);
+                    const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/customers/${customerId}`);
                     if (response.status === 200 && response.data.data) {
                         const customerData = response.data.data;
                         setCustomer(customerData);
@@ -65,7 +65,7 @@ const CheckOut = () => {
         };
     
         try {
-            const response = await axios.post('http://localhost:3001/api/order/create', orderDetails);
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/order/create', orderDetails);
             if (response.data.status === 'OK') {
                 const orderId = response.data.data._id;
                 alert('Order placed successfully!');

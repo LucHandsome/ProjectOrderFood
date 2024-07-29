@@ -9,7 +9,7 @@ const Order = ({ driverId, onStatusUpdate }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/order/orders', {
+                const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/order/orders', {
                     params: {
                         driverId: driverId,
                         status: 'Đã nhận đơn'
@@ -43,7 +43,7 @@ const Order = ({ driverId, onStatusUpdate }) => {
         }
 
         try {
-            const response = await axios.put(`http://localhost:3001/api/order/update-order/${orderId}`, updateData);
+            const response = await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/order/update-order/${orderId}`, updateData);
             if (response.data.status === 'OK') {
                 if (newStatus === 'Hoàn thành') {
                     // Remove the order from the interface

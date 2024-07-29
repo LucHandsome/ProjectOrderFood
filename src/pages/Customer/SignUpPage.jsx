@@ -24,7 +24,7 @@ const SignUpPage = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:3001/api/customers/sign-up', {
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-up', {
                 email,
                 password,
                 dateOfBirth,

@@ -14,7 +14,7 @@ const DangKy = () => {
 
     const handleButtonClick = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/api/user/check-email', { email });
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/user/check-email', { email });
             if (response.data.status === 'OK') {
                 navigate('/registerpassword', { state: { email } });
             } else {

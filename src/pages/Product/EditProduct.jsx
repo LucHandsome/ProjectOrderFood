@@ -19,7 +19,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/product/get-product/${productId}`);
+                const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/product/get-product/${productId}`);
                 const product = response.data.data;
                 setFoodId(product.Food_id);
                 setFoodName(product.Food_name);
@@ -58,7 +58,7 @@ const EditProduct = () => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:3001/api/product/update-product/${productId}`, formData);
+            const response = await axios.put(`https://order-app-88-037717b27b20.herokuapp.com/api/product/update-product/${productId}`, formData);
 
             if (response.data.status === 'OK') {
                 toast.success('Cập nhật món ăn thành công!', {
