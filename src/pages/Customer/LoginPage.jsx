@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useNavigate } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ const LoginPage = () => {
                 console.log(response.data.data);  // Kiểm tra dữ liệu trả về
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('customerId', response.data.data.id);
-                window.location.href = '/restaurantlist';
+                navigate('/restaurantlist');
             } else {
                 toast.error(response.data.message || 'Đăng nhập không thành công. Vui lòng kiểm tra lại email và mật khẩu.');
             }
