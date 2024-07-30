@@ -84,7 +84,7 @@ const CheckOut = () => {
                         message: `Order ${orderId}`,
                         userID: customer._id,
                         OrderID: orderId,
-                        return_url: `https://order-app-88-037717b27b20.herokuapp.com/payment/order?id=${orderId}` // Thay đổi return_url theo cấu hình của bạn
+                        return_url: `https://project-order-food.vercel.app/payment/${orderId}` // Thay đổi return_url theo cấu hình của bạn
                     });
 
                     if (paymentResponse.data.data && paymentResponse.data.data.url) {
@@ -175,7 +175,7 @@ const CheckOut = () => {
                             </div>
                             <div>
                                 <label className="block text-gray-700">Chọn phương thức thanh toán</label>
-                                <select className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <select onChange={handlePaymentMethodChange} className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-orange-500">
                                     <option>Tiền mặt</option>
                                     <option>Online</option>
                                 </select>

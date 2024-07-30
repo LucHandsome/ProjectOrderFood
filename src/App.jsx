@@ -75,7 +75,7 @@ function App() {
                 <Route path='/restaurantlist' element={<RestaurantList/>} />
                 <Route path='/history' element={<CusHistory/>} />
                 <Route path='/checkout/:storeId' element={<CheckOut/>} />
-                <Route path="/payment" element={<PaymentResult />} />
+                <Route path="/payment/:id" element={<PaymentResult />} />
 
 
 
