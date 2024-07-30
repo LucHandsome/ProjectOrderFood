@@ -24,7 +24,7 @@ const CheckOut = () => {
             const customerId = localStorage.getItem('customerId');
             if (customerId) {
                 try {
-                    const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/customers/${customerId}`);
+                    const response = await axios.get(`https://project-order-food.vercel.app/api/customers/${customerId}`);
                     if (response.status === 200 && response.data.data) {
                         const customerData = response.data.data;
                         setCustomer(customerData);
@@ -61,21 +61,70 @@ const CheckOut = () => {
     const handleConfirmOrder = async () => {
         console.log('Delivery Info before sending:', deliveryInfo);  // Log thông tin giao hàng trước khi gửi
         const orderDetails = {
-            customerId: customer._id,
-            cart,
-            deliveryInfo,
-            totalPrice,
-            storeId,
-            paymentMethod
-        };
-    
+            "customerId": "60d6fbb4b9e7e825dc4f3e96",
+            "cart": [
+              {
+                "_id": "60d6fb23b9e7e825dc4f3e95",
+                "Food_name": "Pizza",
+                "Food_picture": "http://example.com/pizza.jpg",
+                "Price": 150000,
+                "quantity": 2
+              },
+              {
+                "_id": "60d6fb23b9e7e825dc4f3e94",
+                "Food_name": "Burger",
+                "Food_picture": "http://example.com/burger.jpg",
+                "Price": 50000,
+                "quantity": 1
+              }
+            ],
+            "deliveryInfo": {
+              "name": "John Doe",
+              "phone": "0123456789",
+              "address": "123 Main St, City, Country",
+              "deliveryTime": "12:30",
+              "deliveryDate": "2024-07-31"
+            },
+            "totalPrice": 350000,
+            "storeId": "60d6fbb4b9e7e825dc4f3e97",
+            "paymentMethod": "Online",
+            "paymentStatus": "Chưa thanh toán",
+            "status": "Chờ xác nhận",
+            "driverId": null
+          }
+        console.log(orderDetails)
         try {
-            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/order/create', orderDetails);
+            const response = await axios.post('https://project-order-food.vercel.app/api/order/create', orderDetails);
             if (response.data.status === 'OK') {
                 const orderId = response.data.data._id;
+                if (paymentMethod === 'Online') {
+                    // Call the payment initiation API
+                    const data = {
+                        private_key: 'pk_presspay_d93fe99984de8e2f433a0ef88b7a2cdad8eb95c00756270b3170fc0ee3d7dc81', 
+                        amount: totalPrice,
+                        currency: 'VND',
+                        message: `Thanh toán đơn hàng ${orderId}`,
+                        userID: customer._id,
+                        orderID: orderId,
+                        return_url: `https://project-order-food.vercel.app/payment/${orderId}`
+                    }
+                    console.log(data)
+                    const paymentResponse = await axios.post('https://presspay-api.azurewebsites.net/api/v1/payment',data);
+
+                    if (paymentResponse.status === 200) {
+                        // Redirect to the payment URL PressPay
+                        window.location.href = paymentResponse.data.url;
+                    } else {
+                        console.error('Failed to initiate payment');
+                    }
+                } else {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem(`cart-${storeId}`);
+                    navigate('/restaurantlist');
+                }
                 alert('Order placed successfully!');
-                // localStorage.removeItem(cart-${storeId});
-                navigate('/restaurantlist');
+                    localStorage.removeItem(`cart-${storeId}`);
+                    navigate('/restaurantlist');
             } else {
                 console.error('Failed to place order');
             }

@@ -6,7 +6,7 @@ const OrderDriver = ({ driverId }) => {
     useEffect(() => {
         const fetchNewOrders = async () => {
             try {
-                const response = await axios.get('https://order-app-88-037717b27b20.herokuapp.com/api/order/pending-orders');
+                const response = await axios.get('https://project-order-food.vercel.app/api/order/pending-orders');
                 if (response.data.status === 'OK') {
                     setOrders(response.data.data);
                 } else {
