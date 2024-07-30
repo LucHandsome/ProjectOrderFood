@@ -11,6 +11,9 @@ const DangKy = () => {
     const handleBackClick = () => {
         navigate(-1); // Quay lại trang trước
     };
+    const handleLogin = () => {
+        navigate('/login'); // Quay lại trang trước
+    };
 
     const handleButtonClick = async () => {
         try {
@@ -73,7 +76,7 @@ const DangKy = () => {
                         <div className="mt-4 text-center">
                             <p className="text-gray-700">
                                 Bạn đã có tài khoản?{' '}
-                                <a className="font-bold text-blue-500 hover:text-blue-800" href="/login">Đăng nhập</a>
+                                <a onClick={handleLogin} className="font-bold text-blue-500 hover:text-blue-800" href="/login">Đăng nhập</a>
                             </p>
                         </div>
                     </form>

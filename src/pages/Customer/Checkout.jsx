@@ -74,7 +74,7 @@ const CheckOut = () => {
             if (response.data.status === 'OK') {
                 const orderId = response.data.data._id;
                 alert('Order placed successfully!');
-                localStorage.removeItem(`cart-${storeId}`);
+                // localStorage.removeItem(cart-${storeId});
                 navigate('/restaurantlist');
             } else {
                 console.error('Failed to place order');

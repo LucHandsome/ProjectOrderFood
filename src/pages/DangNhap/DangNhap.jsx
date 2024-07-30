@@ -8,6 +8,9 @@ const DangNhap = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const handleTiep=()=>{
+        navigate('/register')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,7 +109,7 @@ const DangNhap = () => {
                         <div className="mt-4 text-center">
                             <p className="text-gray-700">
                                 Bạn chưa có tài khoản?{' '}
-                                <a className="font-bold text-blue-500 hover:text-blue-800" href="/register">
+                                <a onClick={handleTiep} className="font-bold text-blue-500 hover:text-blue-800" href="">
                                     Đăng ký ngay
                                 </a>
                             </p>

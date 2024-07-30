@@ -10,6 +10,10 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const handleRes = () => {
+        navigate('/ign-up-page'); // Quay lại trang trước
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -93,7 +97,7 @@ const LoginPage = () => {
                         <div className="mt-4 text-center">
                             <p className="text-gray-700">
                                 Bạn chưa có tài khoản?{' '}
-                                <a href="/sign-up-page" className="font-bold text-blue-500 hover:text-blue-700">
+                                <a onClick={handleRes} href="/sign-up-page" className="font-bold text-blue-500 hover:text-blue-700">
                                     Đăng ký ngay
                                 </a>
                             </p>
