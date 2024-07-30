@@ -33,6 +33,7 @@ import CheckOut from './pages/Customer/Checkout'
 import Order from './pages/Driver/Order'
 import HistoryOrder from './pages/Driver/History'
 import OrderOfStore from './pages/Store/OrderOfStore'
+import PaymentResult from './pages/Customer/PaymentResult'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -74,6 +75,7 @@ function App() {
                 <Route path='/restaurantlist' element={<RestaurantList/>} />
                 <Route path='/history' element={<CusHistory/>} />
                 <Route path='/checkout/:storeId' element={<CheckOut/>} />
+                <Route path="/payment" element={<PaymentResult />} />
 
 
 
