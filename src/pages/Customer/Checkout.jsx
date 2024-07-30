@@ -16,7 +16,7 @@ const CheckOut = () => {
         deliveryTime: '',
         deliveryDate: ''
     });
-    const [paymentMethod, setPaymentMethod] = useState('Tiền mặt'); // Thêm trạng thái paymentMethod
+    const [paymentMethod, setPaymentMethod] = useState('Tiền mặt');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,7 +55,7 @@ const CheckOut = () => {
     };
 
     const handlePaymentMethodChange = (e) => {
-        setPaymentMethod(e.target.value); // Cập nhật trạng thái paymentMethod
+        setPaymentMethod(e.target.value);
     };
 
     const handleConfirmOrder = async () => {
@@ -70,42 +70,20 @@ const CheckOut = () => {
         };
     
         try {
-            // Tạo đơn hàng
-            const orderResponse = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/order/create', orderDetails);
-            if (orderResponse.data.status === 'OK') {
-                const orderId = orderResponse.data.data._id;
-
-                if (paymentMethod === 'Online') {
-                    // Tạo giao dịch thanh toán
-                    const paymentResponse = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/payment/create-payment', {
-                        private_key: 'pk_presspay_d93fe99984de8e2f433a0ef88b7a2cdad8eb95c00756270b3170fc0ee3d7dc81',
-                        amount: totalPrice,
-                        currency: 'VND',
-                        message: `Order ${orderId}`,
-                        userID: customer._id,
-                        OrderID: orderId,
-                        return_url: `https://project-order-food.vercel.app/payment/${orderId}` // Thay đổi return_url theo cấu hình của bạn
-                    });
-
-                    if (paymentResponse.data.data && paymentResponse.data.data.url) {
-                        // Chuyển hướng người dùng đến URL thanh toán của PressPay
-                        window.location.href = paymentResponse.data.data.url;
-                    } else {
-                        console.error('Failed to create payment transaction');
-                    }
-                } else {
-                    alert('Order placed successfully!');
-                    localStorage.removeItem(`cart-${storeId}`);
-                    navigate('/restaurantlist');
-                }
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/order/create', orderDetails);
+            if (response.data.status === 'OK') {
+                const orderId = response.data.data._id;
+                alert('Order placed successfully!');
+                localStorage.removeItem(`cart-${storeId}`);
+                navigate('/restaurantlist');
             } else {
                 console.error('Failed to place order');
             }
         } catch (error) {
-            console.error('Error placing order or creating payment transaction:', error);
+            console.error('Error placing order:', error);
         }
     };
-    
+
     return (
         <div className="flex flex-col min-h-screen">
             <header className="bg-orange-600 text-white p-4 flex flex-col md:flex-row items-center justify-between shadow-lg">
@@ -175,9 +153,13 @@ const CheckOut = () => {
                             </div>
                             <div>
                                 <label className="block text-gray-700">Chọn phương thức thanh toán</label>
-                                <select onChange={handlePaymentMethodChange} className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-orange-500">
-                                    <option>Tiền mặt</option>
-                                    <option>Online</option>
+                                <select
+                                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                    value={paymentMethod}
+                                    onChange={handlePaymentMethodChange}
+                                >
+                                    <option value="Tiền mặt">Tiền mặt</option>
+                                    <option value="Online">Online</option>
                                 </select>
                             </div>
 
