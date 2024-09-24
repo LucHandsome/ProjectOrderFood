@@ -9,7 +9,7 @@ const PaymentResult = () => {
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
-                const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/orders/${id}`);
+                const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/order/orders/${id}`);
                 if (response.status === 200) {
                     setOrderDetails(response.data.data);
                 } else {

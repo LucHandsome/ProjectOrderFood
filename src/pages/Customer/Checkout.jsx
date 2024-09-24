@@ -24,7 +24,7 @@ const CheckOut = () => {
             const customerId = localStorage.getItem('customerId');
             if (customerId) {
                 try {
-                    const response = await axios.get(`https://project-order-food.vercel.app/api/customers/${customerId}`);
+                    const response = await axios.get(`https://order-app-88-037717b27b20.herokuapp.com/api/customers/${customerId}`);
                     if (response.status === 200 && response.data.data) {
                         const customerData = response.data.data;
                         setCustomer(customerData);
@@ -94,7 +94,7 @@ const CheckOut = () => {
           }
         console.log(orderDetails)
         try {
-            const response = await axios.post('https://project-order-food.vercel.app/api/order/create', orderDetails);
+            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/order/create', orderDetails);
             if (response.data.status === 'OK') {
                 const orderId = response.data.data._id;
                 if (paymentMethod === 'Online') {
@@ -106,7 +106,7 @@ const CheckOut = () => {
                         message: `Thanh toán đơn hàng ${orderId}`,
                         userID: customer._id,
                         orderID: orderId,
-                        return_url: `https://project-order-food.vercel.app/payment/${orderId}`
+                        return_url: `http://localhost:5173/payment/${orderId}`
                     }
                     console.log(data)
                     const paymentResponse = await axios.post('https://presspay-api.azurewebsites.net/api/v1/payment',data);
