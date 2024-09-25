@@ -74,7 +74,7 @@ function App() {
                 <Route path='/loginpage' element={<LoginPage/>} />
                 <Route path='/sign-up-page' element={<SignUpPage/>} />
                 <Route path='/menu/:storeId' element={<Menu/>} />
-                <Route path='/restaurantlist/:code' element={<RestaurantList/>} />
+                <Route path='/restaurantlist' element={<RestaurantList/>} />
                 <Route path='/history' element={<CusHistory/>} />
                 <Route path='/checkout/:storeId' element={<CheckOut/>} />
                 <Route path="/payment/:id" element={<PaymentResult />} />
