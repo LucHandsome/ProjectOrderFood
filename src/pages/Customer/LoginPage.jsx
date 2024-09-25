@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
-import OAuthPointer from 'oauth-pointer'; // Sử dụng import mặc định
+import { PointerStrategy } from 'oauth-pointer'; // Thay đổi import
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const LoginPage = () => {
 
     const handlePointerLogin = async () => {
         console.log('Bắt đầu quy trình đăng nhập bằng Pointer...');
-        const oauth = new OAuthPointer({
+        const oauth = new PointerStrategy({
             clientId: '66f45beb2b1d190d4d448637',
             redirectUri: 'https://project-order-food.vercel.app/',
         });
