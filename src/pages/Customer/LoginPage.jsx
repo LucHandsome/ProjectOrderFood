@@ -57,8 +57,10 @@ const LoginPage = () => {
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
                         
-                        // Chuyển hướng đến trang restaurantlist mà không có tham số
+                        // Chuyển hướng đến trang restaurantlist
                         navigate('/restaurantlist');
+
+                        // Xóa tham số 'code' khỏi URL
                         window.history.replaceState({}, document.title, window.location.pathname);
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
@@ -70,7 +72,6 @@ const LoginPage = () => {
                 }
             }
         };
-        
 
         fetchPointerToken();
     }, [navigate]);
