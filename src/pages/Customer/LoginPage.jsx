@@ -33,7 +33,7 @@ const LoginPage = () => {
     };
 
     const handlePointerLogin = () => {
-        const clientId = '66f38b1441aea9e24920e456'; // Đảm bảo sử dụng clientId đúng
+        const clientId = '66f45beb2b1d190d4d448637'; // Đảm bảo sử dụng clientId đúng
         const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/');
 
         // Chuyển hướng đến URL xác thực
