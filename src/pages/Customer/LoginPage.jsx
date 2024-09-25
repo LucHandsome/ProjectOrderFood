@@ -46,17 +46,20 @@ const LoginPage = () => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
-
+        
             if (code) {
                 setLoading(true);
                 try {
                     const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-
+        
                     if (response.data.token) {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
+                        
+                        // Chuyển hướng đến trang restaurantlist mà không có tham số
                         navigate('/restaurantlist');
+                        window.history.replaceState({}, document.title, window.location.pathname);
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
@@ -67,6 +70,7 @@ const LoginPage = () => {
                 }
             }
         };
+        
 
         fetchPointerToken();
     }, [navigate]);
