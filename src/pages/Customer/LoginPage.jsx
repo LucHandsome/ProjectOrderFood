@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { OAuthPointer } from 'oauth-pointer'; // Import thư viện
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -33,13 +34,19 @@ const LoginPage = () => {
         }
     };
 
-    // Đăng nhập bằng Pointer
-    const handlePointerLogin = () => {
-        // Sử dụng clientId thực tế từ Pointer
-        const pointerAuthUrl = `https://sso-pointer.vercel.app/`;
-        
-        // Chuyển hướng người dùng đến trang xác thực của Pointer
-        window.location.href = pointerAuthUrl;
+    const handlePointerLogin = async () => {
+        const oauth = new OAuthPointer({
+            clientId: '66f45beb2b1d190d4d448637', // Thay bằng clientId của bạn
+            redirectUri: 'https://project-order-food.vercel.app/', // Địa chỉ redirect của bạn
+        });
+    
+        try {
+            // Khởi động quy trình đăng nhập
+            const authUrl = oauth.getAuthorizationUrl();
+            window.location.href = authUrl; // Chuyển hướng người dùng đến trang xác thực
+        } catch (error) {
+            toast.error('Đã xảy ra lỗi khi đăng nhập bằng Pointer. Vui lòng thử lại.');
+        }
     };
     
 
