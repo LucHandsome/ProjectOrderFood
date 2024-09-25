@@ -33,8 +33,8 @@ const LoginPage = () => {
     };
 
     const handlePointerLogin = () => {
-        const clientId = '66f45beb2b1d190d4d448637'; // Đảm bảo sử dụng clientId đúng
-        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/');
+        const clientId = '66f47f24b47c42cc24d6b336'; // Đảm bảo sử dụng clientId đúng
+        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist/');
 
         // Chuyển hướng đến URL xác thực
         const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
