@@ -3,7 +3,6 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
-import { PointerStrategy } from 'oauth-pointer'; 
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -33,21 +32,12 @@ const LoginPage = () => {
         }
     };
 
-    const getAuthorizationUrl = (clientId, callbackUrl) => {
-        const params = new URLSearchParams({
-            client_id: clientId,
-            redirect_uri: callbackUrl,
-            response_type: 'code',
-        });
-        return `https://oauth.pointer.io.vn/auth?${params.toString()}`;
-    };
+    const handlePointerLogin = () => {
+        const clientId = '66f38b1441aea9e24920e456'; // Đảm bảo sử dụng clientId đúng
+        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/');
 
-    const handlePointerLogin = async () => {
-        const clientId = '66f45beb2b1d190d4d448637';
-        const callbackUrl = 'https://project-order-food.vercel.app/';
-
-        // Lấy URL xác thực
-        const authUrl = getAuthorizationUrl(clientId, callbackUrl);
+        // Chuyển hướng đến URL xác thực
+        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
     };
