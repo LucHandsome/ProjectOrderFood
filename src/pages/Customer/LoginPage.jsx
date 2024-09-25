@@ -33,22 +33,23 @@ const LoginPage = () => {
         }
     };
 
-    const handlePointerLogin = async () => {
-        const pointer = new PointerStrategy({
-            clientId: '66f45beb2b1d190d4d448637',
-            clientSecret: '0c6e42fa7695bf7858930478',
-            callbackUrl: 'https://project-order-food.vercel.app/',
+    const getAuthorizationUrl = (clientId, callbackUrl) => {
+        const params = new URLSearchParams({
+            client_id: clientId,
+            redirect_uri: callbackUrl,
+            response_type: 'code',
         });
+        return `https://oauth.pointer.io.vn/auth?${params.toString()}`;
+    };
 
-        // Chuyển hướng người dùng tới URL xác thực
-        try {
-            const authUrl = pointer.getAuthorizationUrl(); 
-            console.log('URL xác thực:', authUrl);
-            window.location.href = authUrl;
-        } catch (error) {
-            console.error('Lỗi khi lấy URL xác thực:', error);
-            toast.error('Đã xảy ra lỗi khi xác thực Pointer. Vui lòng thử lại.');
-        }
+    const handlePointerLogin = async () => {
+        const clientId = '66f45beb2b1d190d4d448637';
+        const callbackUrl = 'https://project-order-food.vercel.app/';
+
+        // Lấy URL xác thực
+        const authUrl = getAuthorizationUrl(clientId, callbackUrl);
+        console.log('URL xác thực:', authUrl);
+        window.location.href = authUrl;
     };
 
     useEffect(() => {
