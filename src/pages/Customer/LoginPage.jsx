@@ -34,16 +34,21 @@ const LoginPage = () => {
     };
 
     const handlePointerLogin = async () => {
-        console.log('Bắt đầu quy trình đăng nhập bằng Pointer...');
-        const oauth = new PointerStrategy({
+        const oauth = new OAuthPointer({
             clientId: '66f45beb2b1d190d4d448637',
             redirectUri: 'https://project-order-food.vercel.app/',
         });
-
+    
         try {
-            const authUrl = oauth.getAuthorizationUrl();
-            console.log('URL xác thực:', authUrl);
-            window.location.href = authUrl;
+            // Kiểm tra xem phương thức getAuthorizationUrl có tồn tại không
+            if (typeof oauth.getAuthorizationUrl === 'function') {
+                const authUrl = oauth.getAuthorizationUrl();
+                console.log('URL xác thực:', authUrl);
+                window.location.href = authUrl;
+            } else {
+                console.error('getAuthorizationUrl is not a function');
+                toast.error('Đã xảy ra lỗi khi lấy URL xác thực. Vui lòng thử lại.');
+            }
         } catch (error) {
             console.error('Lỗi khi đăng nhập bằng Pointer:', error);
             toast.error('Đã xảy ra lỗi khi đăng nhập bằng Pointer. Vui lòng thử lại.');
