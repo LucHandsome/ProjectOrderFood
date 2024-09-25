@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
@@ -10,20 +10,16 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleRes = () => {
-        navigate('/ign-up-page'); // Quay lại trang trước
-    };
-
+    // Hàm xử lý cho người dùng đăng nhập thông thường
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-    
+
         try {
             const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in', { email, password });
-            
+
             if (response.data.token) {
                 toast.success('Đăng nhập thành công!');
-                console.log(response.data.data);  // Kiểm tra dữ liệu trả về
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('customerId', response.data.data.id);
                 navigate('/restaurantlist');
@@ -36,7 +32,46 @@ const LoginPage = () => {
             setLoading(false);
         }
     };
-    
+
+    // Đăng nhập bằng Pointer
+    const handlePointerLogin = () => {
+        const pointerAuthUrl = `https://pointer.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=https://your-frontend.com/login&response_type=code`;
+        window.location.href = pointerAuthUrl;  // Chuyển hướng người dùng đến trang xác thực của Pointer
+    };
+
+    // Hàm xử lý khi nhận mã code từ Pointer
+    useEffect(() => {
+        const fetchPointerToken = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');  // Lấy mã code từ URL
+
+            if (code) {
+                setLoading(true);
+                try {
+                    // Gửi mã code lên backend để lấy token
+                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', {
+                        code: code,  // Gửi mã code nhận được từ Pointer
+                    });
+
+                    if (response.data.token) {
+                        toast.success('Đăng nhập Pointer thành công!');
+                        localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('customerId', response.data.data.id);
+                        navigate('/restaurantlist');
+                    } else {
+                        toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+                    }
+                } catch (error) {
+                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        // Gọi hàm xử lý khi phát hiện mã code trong URL
+        fetchPointerToken();
+    }, [navigate]);
 
     return (
         <div className="flex flex-col md:flex-row h-screen">
@@ -52,7 +87,7 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold">Customer</h1>
-                    <p className="mt-4 text-sm md:text-base">Nền tảng đặt đồ ăn online tiện lợi,giá rẻ</p>
+                    <p className="mt-4 text-sm md:text-base">Nền tảng đặt đồ ăn online tiện lợi, giá rẻ</p>
                 </div>
             </div>
             <div className="md:flex-1 flex items-center justify-center p-4 md:p-0 bg-gray-100">
@@ -97,12 +132,21 @@ const LoginPage = () => {
                         <div className="mt-4 text-center">
                             <p className="text-gray-700">
                                 Bạn chưa có tài khoản?{' '}
-                                <a onClick={handleRes} href="/sign-up-page" className="font-bold text-blue-500 hover:text-blue-700">
+                                <a onClick={() => navigate('/sign-up-page')} className="font-bold text-blue-500 hover:text-blue-700">
                                     Đăng ký ngay
                                 </a>
                             </p>
                         </div>
                     </form>
+                    <div className="mt-4">
+                        <button
+                            onClick={handlePointerLogin}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            disabled={loading}
+                        >
+                            {loading ? 'Đang đăng nhập...' : 'Đăng nhập bằng Pointer'}
+                        </button>
+                    </div>
                     <ToastContainer />
                 </div>
             </div>
