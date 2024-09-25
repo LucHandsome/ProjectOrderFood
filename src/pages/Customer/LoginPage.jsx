@@ -41,38 +41,39 @@ const LoginPage = () => {
     };
 
     useEffect(() => {
-    const fetchPointerToken = async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-
-        if (code) {
-            setLoading(true);
-            try {
-                const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-
-                if (response.data.token) {
-                    toast.success('Đăng nhập Pointer thành công!');
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('customerId', response.data.data.id);
-                    
-                    // Chuyển hướng đến trang restaurantlist
-                    navigate('/restaurantlist');
-
-                    // Xóa tham số 'code' khỏi URL
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                } else {
-                    toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+        const fetchPointerToken = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+    
+            if (code) {
+                setLoading(true);
+                try {
+                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+    
+                    if (response.data.token) {
+                        toast.success('Đăng nhập Pointer thành công!');
+                        localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('customerId', response.data.data.id);
+    
+                        // Chuyển hướng đến trang restaurantlist
+                        navigate('/restaurantlist');
+                        
+                        // Xóa tham số 'code' khỏi URL
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    } else {
+                        toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+                    }
+                } catch (error) {
+                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+                } finally {
+                    setLoading(false);
                 }
-            } catch (error) {
-                toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-            } finally {
-                setLoading(false);
             }
-        }
-    };
-
-    fetchPointerToken();
-}, [navigate]);
+        };
+    
+        fetchPointerToken();
+    }, [navigate]);
+    
 
 
     return (
