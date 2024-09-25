@@ -34,43 +34,46 @@ const LoginPage = () => {
 
     const handlePointerLogin = () => {
         const clientId = '66f47f24b47c42cc24d6b336';
-        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist/');
+        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist');
         const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
     };
 
     useEffect(() => {
-        const fetchPointerToken = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
+    const fetchPointerToken = async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
 
-            if (code) {
-                setLoading(true);
-                try {
-                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+        if (code) {
+            setLoading(true);
+            try {
+                const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
 
-                    if (response.data.token) {
-                        toast.success('Đăng nhập Pointer thành công!');
-                        localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('customerId', response.data.data.id);
-                        navigate('/restaurantlist');
+                if (response.data.token) {
+                    toast.success('Đăng nhập Pointer thành công!');
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('customerId', response.data.data.id);
+                    
+                    // Chuyển hướng đến trang restaurantlist
+                    navigate('/restaurantlist');
 
-                        // Xóa tham số 'code' khỏi URL
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                    } else {
-                        toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
-                    }
-                } catch (error) {
-                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-                } finally {
-                    setLoading(false);
+                    // Xóa tham số 'code' khỏi URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } else {
+                    toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                 }
+            } catch (error) {
+                toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+            } finally {
+                setLoading(false);
             }
-        };
+        }
+    };
 
-        fetchPointerToken();
-    }, [navigate]);
+    fetchPointerToken();
+}, [navigate]);
+
 
     return (
         <div className="flex flex-col md:flex-row h-screen">
