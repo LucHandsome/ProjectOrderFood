@@ -37,7 +37,7 @@ const LoginPage = () => {
         const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist/');
 
         // Chuyển hướng đến URL xác thực
-        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}`;
+        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
     };
