@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
-import { PointerStrategy } from 'oauth-pointer'; // Thay đổi import
+import { PointerStrategy } from 'oauth-pointer'; 
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -34,24 +34,20 @@ const LoginPage = () => {
     };
 
     const handlePointerLogin = async () => {
-        const oauth = new OAuthPointer({
+        const pointer = new PointerStrategy({
             clientId: '66f45beb2b1d190d4d448637',
-            redirectUri: 'https://project-order-food.vercel.app/',
+            clientSecret: '0c6e42fa7695bf7858930478',
+            callbackUrl: 'https://project-order-food.vercel.app/',
         });
-    
+
+        // Chuyển hướng người dùng tới URL xác thực
         try {
-            // Kiểm tra xem phương thức getAuthorizationUrl có tồn tại không
-            if (typeof oauth.getAuthorizationUrl === 'function') {
-                const authUrl = oauth.getAuthorizationUrl();
-                console.log('URL xác thực:', authUrl);
-                window.location.href = authUrl;
-            } else {
-                console.error('getAuthorizationUrl is not a function');
-                toast.error('Đã xảy ra lỗi khi lấy URL xác thực. Vui lòng thử lại.');
-            }
+            const authUrl = pointer.getAuthorizationUrl(); 
+            console.log('URL xác thực:', authUrl);
+            window.location.href = authUrl;
         } catch (error) {
-            console.error('Lỗi khi đăng nhập bằng Pointer:', error);
-            toast.error('Đã xảy ra lỗi khi đăng nhập bằng Pointer. Vui lòng thử lại.');
+            console.error('Lỗi khi lấy URL xác thực:', error);
+            toast.error('Đã xảy ra lỗi khi xác thực Pointer. Vui lòng thử lại.');
         }
     };
 
@@ -63,9 +59,7 @@ const LoginPage = () => {
             if (code) {
                 setLoading(true);
                 try {
-                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', {
-                        code: code,
-                    });
+                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
 
                     if (response.data.token) {
                         toast.success('Đăng nhập Pointer thành công!');
