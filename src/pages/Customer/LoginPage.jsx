@@ -46,12 +46,12 @@ const LoginPage = () => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
-        
+
             if (code) {
                 setLoading(true);
                 try {
                     const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-        
+
                     if (response.data.token) {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
@@ -61,7 +61,7 @@ const LoginPage = () => {
                         navigate('/restaurantlist');
 
                         // Xóa tham số 'code' khỏi URL
-                        window.history.replaceState({}, document.title, window.location.pathname);
+                        window.history.replaceState({}, document.title, window.location.origin + '/restaurantlist');
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
