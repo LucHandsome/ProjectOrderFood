@@ -36,7 +36,7 @@ const LoginPage = () => {
     // Đăng nhập bằng Pointer
     const handlePointerLogin = () => {
         // Sử dụng clientId thực tế từ Pointer
-        const pointerAuthUrl = `https://sso-pointer.vercel.app/authorize?clientId=66f45beb2b1d190d4d448637&redirect_uri=https://project-order-food.vercel.app/&response_type=code`;
+        const pointerAuthUrl = `https://sso-pointer.vercel.app/`;
         
         // Chuyển hướng người dùng đến trang xác thực của Pointer
         window.location.href = pointerAuthUrl;
