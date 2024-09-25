@@ -35,9 +35,13 @@ const LoginPage = () => {
 
     // Đăng nhập bằng Pointer
     const handlePointerLogin = () => {
-        const pointerAuthUrl = `https://pointer.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=https://your-frontend.com/login&response_type=code`;
-        window.location.href = pointerAuthUrl;  // Chuyển hướng người dùng đến trang xác thực của Pointer
+        // Sử dụng clientId thực tế từ Pointer
+        const pointerAuthUrl = `https://sso-pointer.vercel.app/authorize?clientId=66f38b1441aea9e24920e456&redirect_uri=https://your-frontend.com/login&response_type=code`;
+        
+        // Chuyển hướng người dùng đến trang xác thực của Pointer
+        window.location.href = pointerAuthUrl;
     };
+    
 
     // Hàm xử lý khi nhận mã code từ Pointer
     useEffect(() => {
