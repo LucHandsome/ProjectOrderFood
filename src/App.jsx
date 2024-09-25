@@ -34,6 +34,8 @@ import Order from './pages/Driver/Order'
 import HistoryOrder from './pages/Driver/History'
 import OrderOfStore from './pages/Store/OrderOfStore'
 import PaymentResult from './pages/Customer/PaymentResult'
+import CustomerPage from './pages/CustomerPage/CustomerPage'
+import StorePage from './pages/StorePage/StorePage'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -78,8 +80,8 @@ function App() {
                 <Route path="/payment/:id" element={<PaymentResult />} />
 
 
-
-                
+                <Route path="/customerPage" element={<CustomerPage />} />
+                <Route path="/storePage" element={<StorePage />} />
                 
               </Routes>
             </Router>                   
