@@ -33,10 +33,8 @@ const LoginPage = () => {
     };
 
     const handlePointerLogin = () => {
-        const clientId = '66f47f24b47c42cc24d6b336'; // Đảm bảo sử dụng clientId đúng
+        const clientId = '66f47f24b47c42cc24d6b336';
         const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist/');
-
-        // Chuyển hướng đến URL xác thực
         const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
@@ -56,9 +54,10 @@ const LoginPage = () => {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
-                        
-                        // Chuyển hướng đến trang restaurantlist
                         navigate('/restaurantlist');
+
+                        // Xóa tham số 'code' khỏi URL
+                        window.history.replaceState({}, document.title, window.location.pathname);
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
@@ -95,9 +94,7 @@ const LoginPage = () => {
                     <h1 className="text-2xl font-bold mb-6 text-center">Đăng Nhập</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                                Email
-                            </label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
                             <input
                                 type="email"
                                 id="email"
@@ -109,9 +106,7 @@ const LoginPage = () => {
                             />
                         </div>
                         <div className="mb-6">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                                Mật khẩu
-                            </label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Mật khẩu</label>
                             <input
                                 type="password"
                                 id="password"
