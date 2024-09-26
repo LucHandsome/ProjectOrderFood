@@ -42,37 +42,37 @@ const LoginPage = () => {
             window.location.href = authUrl;
         };
     
-        // Hàm xử lý nhận mã xác thực và gọi API đăng nhập SSO
-        useEffect(() => {
-            const fetchPointerToken = async () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
+        // // Hàm xử lý nhận mã xác thực và gọi API đăng nhập SSO
+        // useEffect(() => {
+        //     const fetchPointerToken = async () => {
+        //         const urlParams = new URLSearchParams(window.location.search);
+        //         const code = urlParams.get('code');
     
-                if (code) {
-                    setLoading(true);
-                    try {
-                        const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+        //         if (code) {
+        //             setLoading(true);
+        //             try {
+        //                 const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
     
-                        if (response.status === 200) {
-                            toast.success('Đăng nhập Pointer thành công!');
-                            localStorage.setItem('token', response.data.token);
-                            localStorage.setItem('customerId', response.data.data.id);
+        //                 if (response.status === 200) {
+        //                     toast.success('Đăng nhập Pointer thành công!');
+        //                     localStorage.setItem('token', response.data.token);
+        //                     localStorage.setItem('customerId', response.data.data.id);
     
-                            // Điều hướng đến trang restaurantlist
-                            navigate('/restaurantlist');
-                        } else {
-                            toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
-                        }
-                    } catch (error) {
-                        toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-                    } finally {
-                        setLoading(false);
-                    }
-                }
-            };
+        //                     // Điều hướng đến trang restaurantlist
+        //                     navigate('/restaurantlist');
+        //                 } else {
+        //                     toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+        //                 }
+        //             } catch (error) {
+        //                 toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+        //             } finally {
+        //                 setLoading(false);
+        //             }
+        //         }
+        //     };
     
-            fetchPointerToken();
-        }, [navigate]);
+        //     fetchPointerToken();
+        // }, [navigate]);
     
     
 

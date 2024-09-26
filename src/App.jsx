@@ -73,7 +73,7 @@ function App() {
 
 
                 <Route path='/loginpage' element={<LoginPage/>} />
-                <Route path='/authPage/:code' element={<AuthPage/>} />
+                <Route path='/authPage' element={<AuthPage/>} />
 
                 <Route path='/sign-up-page' element={<SignUpPage/>} />
                 <Route path='/menu/:storeId' element={<Menu/>} />

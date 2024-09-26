@@ -6,9 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AuthPage = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
