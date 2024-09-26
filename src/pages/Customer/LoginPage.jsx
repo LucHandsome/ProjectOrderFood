@@ -35,7 +35,7 @@ const LoginPage = () => {
 
     // Hàm xử lý đăng nhập qua SSO
     const handlePointerLogin = () => {
-        const clientId = '66f52f6a37370353ddcc9b3d';
+        const clientId = '66f56aea6e145e234173008f';
         const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
