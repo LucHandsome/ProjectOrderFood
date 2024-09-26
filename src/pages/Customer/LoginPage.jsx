@@ -10,6 +10,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Hàm xử lý đăng nhập qua email và password
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -32,30 +33,30 @@ const LoginPage = () => {
         }
     };
 
+    // Hàm xử lý đăng nhập qua SSO
     const handlePointerLogin = () => {
         const clientId = '66f47f24b47c42cc24d6b336';
-        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist');
-        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
+        // const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist');
+        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
     };
 
+    // Hàm xử lý nhận mã xác thực và gọi API đăng nhập SSO
     useEffect(() => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
-    
+
             if (code) {
                 setLoading(true);
                 try {
                     const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-    
+
                     if (response.data.token) {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
-    
-                        // Chuyển hướng đến trang restaurantlist
                         navigate('/restaurantlist');
                         
                         // Xóa tham số 'code' khỏi URL
@@ -70,11 +71,9 @@ const LoginPage = () => {
                 }
             }
         };
-    
+
         fetchPointerToken();
     }, [navigate]);
-    
-
 
     return (
         <div className="flex flex-col md:flex-row h-screen">
