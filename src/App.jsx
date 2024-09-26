@@ -36,6 +36,7 @@ import OrderOfStore from './pages/Store/OrderOfStore'
 import PaymentResult from './pages/Customer/PaymentResult'
 import CustomerPage from './pages/CustomerPage/CustomerPage'
 import StorePage from './pages/StorePage/StorePage'
+import AuthPage from './pages/Customer/authPage'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -72,6 +73,8 @@ function App() {
 
 
                 <Route path='/loginpage' element={<LoginPage/>} />
+                <Route path='/authPage/:code' element={<AuthPage/>} />
+
                 <Route path='/sign-up-page' element={<SignUpPage/>} />
                 <Route path='/menu/:storeId' element={<Menu/>} />
                 <Route path='/restaurantlist' element={<RestaurantList/>} />

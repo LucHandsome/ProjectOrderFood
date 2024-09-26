@@ -35,8 +35,8 @@ const LoginPage = () => {
 
         // Hàm xử lý đăng nhập qua SSO
         const handlePointerLogin = () => {
-            const clientId = '66f56aea6e145e234173008f';
-            const redirectUri = encodeURIComponent('https://project-order-food.vercel.app/loginpage');
+            const clientId = '66f57407339e1fafaaba3f61';
+            const redirectUri = encodeURIComponent('https://project-order-food.vercel.app/authPage');
             const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&redirect_uri=${redirectUri}`;
             console.log('URL xác thực:', authUrl);
             window.location.href = authUrl;
