@@ -71,7 +71,7 @@ function App() {
                 <Route path="/orderOfStore/:storeId" element={<OrderOfStore />} />
 
 
-                <Route path='/loginpage' element={<LoginPage/>} />
+                <Route path='/loginpage/:code' element={<LoginPage/>} />
                 <Route path='/sign-up-page' element={<SignUpPage/>} />
                 <Route path='/menu/:storeId' element={<Menu/>} />
                 <Route path='/restaurantlist' element={<RestaurantList/>} />
