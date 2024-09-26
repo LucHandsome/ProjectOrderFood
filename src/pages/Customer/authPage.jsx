@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AuthPage = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false); // Khai báo state loading
+
     useEffect(() => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -27,7 +29,9 @@ const AuthPage = () => {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
                 } catch (error) {
-                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+                    // Kiểm tra error.response để có thông tin chi tiết hơn
+                    const errorMessage = error.response?.data?.message || 'Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.';
+                    toast.error(errorMessage);
                 } finally {
                     setLoading(false);
                 }
@@ -36,11 +40,13 @@ const AuthPage = () => {
 
         fetchPointerToken();
     }, [navigate]);
-  return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Đang xử lý.....</h1>
-    </div>
-  );
+
+    return (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            {loading ? <h1>Đang xử lý.....</h1> : <h1>Chờ một chút...</h1>}
+            <ToastContainer />
+        </div>
+    );
 };
 
 export default AuthPage;
