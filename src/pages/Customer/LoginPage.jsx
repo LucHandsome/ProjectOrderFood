@@ -33,46 +33,46 @@ const LoginPage = () => {
         }
     };
 
-    // Hàm xử lý đăng nhập qua SSO
-    const handlePointerLogin = () => {
-        const clientId = '66f56aea6e145e234173008f';
-        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}`;
-        console.log('URL xác thực:', authUrl);
-        window.location.href = authUrl;
-    };
-
-    // Hàm xử lý nhận mã xác thực và gọi API đăng nhập SSO
-    useEffect(() => {
-        const fetchPointerToken = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-    
-            if (code) {
-                setLoading(true);
-                try {
-                    const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-    
-                    if (response.status === 200) {
-                        toast.success('Đăng nhập Pointer thành công!');
-                        localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('customerId', response.data.data.id);
-    
-                        // Điều hướng đến trang mà không kèm theo mã code
-                        navigate('/restaurantlist');
-                        window.history.replaceState(null, '', '/restaurantlist'); // Xóa mã code khỏi URL
-                    } else {
-                        toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
-                    }
-                } catch (error) {
-                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-                } finally {
-                    setLoading(false);
-                }
-            }
+        // Hàm xử lý đăng nhập qua SSO
+        const handlePointerLogin = () => {
+            const clientId = '66f56aea6e145e234173008f';
+            const redirectUri = encodeURIComponent('https://project-order-food.vercel.app/loginpage');
+            const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&redirect_uri=${redirectUri}`;
+            console.log('URL xác thực:', authUrl);
+            window.location.href = authUrl;
         };
     
-        fetchPointerToken();
-    }, [navigate]);
+        // Hàm xử lý nhận mã xác thực và gọi API đăng nhập SSO
+        useEffect(() => {
+            const fetchPointerToken = async () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+    
+                if (code) {
+                    setLoading(true);
+                    try {
+                        const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+    
+                        if (response.status === 200) {
+                            toast.success('Đăng nhập Pointer thành công!');
+                            localStorage.setItem('token', response.data.token);
+                            localStorage.setItem('customerId', response.data.data.id);
+    
+                            // Điều hướng đến trang restaurantlist
+                            navigate('/restaurantlist');
+                        } else {
+                            toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+                        }
+                    } catch (error) {
+                        toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+                    } finally {
+                        setLoading(false);
+                    }
+                }
+            };
+    
+            fetchPointerToken();
+        }, [navigate]);
     
     
 
