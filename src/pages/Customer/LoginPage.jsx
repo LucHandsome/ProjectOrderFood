@@ -56,7 +56,10 @@ const LoginPage = () => {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
-                        navigate('/restaurantlist'); // Điều hướng đến trang mà không có mã code
+    
+                        // Điều hướng đến trang mà không kèm theo mã code
+                        navigate('/restaurantlist');
+                        window.history.replaceState(null, '', '/restaurantlist'); // Xóa mã code khỏi URL
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
@@ -70,6 +73,7 @@ const LoginPage = () => {
     
         fetchPointerToken();
     }, [navigate]);
+    
     
 
     return (
