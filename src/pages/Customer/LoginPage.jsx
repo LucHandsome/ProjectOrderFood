@@ -36,8 +36,8 @@ const LoginPage = () => {
     // Hàm xử lý đăng nhập qua SSO
     const handlePointerLogin = () => {
         const clientId = '66f5209f821b325f37ffb08a';
-        const callbackUrl = encodeURIComponent('https://project-order-food.vercel.app');
-        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}`;
+        const callbackUrl = encodeURIComponent('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso'); // Đổi callback URL
+        const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&callbackUrl=${callbackUrl}`;
         console.log('URL xác thực:', authUrl);
         window.location.href = authUrl;
     };
@@ -58,9 +58,6 @@ const LoginPage = () => {
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
                         navigate('/restaurantlist');
-                        
-                        // Xóa tham số 'code' khỏi URL
-                        window.history.replaceState({}, document.title, window.location.pathname);
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
