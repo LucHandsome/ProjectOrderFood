@@ -6,12 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AuthPage = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false); // Khai báo state loading
+    const [loading, setLoading] = useState(true); // Thêm loading để điều khiển trạng thái
 
     useEffect(() => {
         const fetchPointerToken = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
+
+            console.log("Code received:", code); // Logging để kiểm tra mã code
 
             if (code) {
                 setLoading(true);
@@ -22,19 +24,17 @@ const AuthPage = () => {
                         toast.success('Đăng nhập Pointer thành công!');
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('customerId', response.data.data.id);
-
-                        // Điều hướng đến trang restaurantlist
                         navigate('/restaurantlist');
                     } else {
                         toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
                     }
                 } catch (error) {
-                    // Kiểm tra error.response để có thông tin chi tiết hơn
-                    const errorMessage = error.response?.data?.message || 'Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.';
-                    toast.error(errorMessage);
+                    toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
                 } finally {
                     setLoading(false);
                 }
+            } else {
+                toast.error('Mã code không được cung cấp.');
             }
         };
 
@@ -43,8 +43,7 @@ const AuthPage = () => {
 
     return (
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            {loading ? <h1>Đang xử lý.....</h1> : <h1>Chờ một chút...</h1>}
-            <ToastContainer />
+            <h1>{loading ? "Đang xử lý....." : "Đã xử lý xong!"}</h1>
         </div>
     );
 };
