@@ -35,45 +35,45 @@ const LoginPage = () => {
 
         // Hàm xử lý đăng nhập qua SSO
         const handlePointerLogin = () => {
-            const clientId = '66f5c35ba567efbc6e99262d';
-            const redirectUri = encodeURIComponent('https://project-order-food.vercel.app/restaurantlist');
+            const clientId = '66f57407339e1fafaaba3f61';
+            const redirectUri = encodeURIComponent('https://project-order-food.vercel.app/authPage');
             const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&redirect_uri=${redirectUri}`;
             console.log('URL xác thực:', authUrl);
             window.location.href = authUrl;
         };
         
-        useEffect(() => {
-            const fetchPointerToken = async () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
+        // useEffect(() => {
+        //     const fetchPointerToken = async () => {
+        //         const urlParams = new URLSearchParams(window.location.search);
+        //         const code = urlParams.get('code');
         
-                if (code) {
-                    setLoading(true);
-                    try {
-                        const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+        //         if (code) {
+        //             setLoading(true);
+        //             try {
+        //                 const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
         
-                        if (response.status === 200) {
-                            console.log("Response from API:", response.data);
-                            toast.success('Đăng nhập Pointer thành công!');
-                            localStorage.setItem('token', response.data.token);
-                            localStorage.setItem('customerId', response.data.data.id);
-                            navigate('/restaurantlist');
-                        } else {
-                            toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
-                        }
-                    } catch (error) {
-                        console.error('Error response:', error.response?.data || error.message);
-                        toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-                    } finally {
-                        setLoading(false);
-                    }
-                } else {
-                    toast.error('Mã code không được cung cấp.');
-                }
-            };
+        //                 if (response.status === 200) {
+        //                     console.log("Response from API:", response.data);
+        //                     toast.success('Đăng nhập Pointer thành công!');
+        //                     localStorage.setItem('token', response.data.token);
+        //                     localStorage.setItem('customerId', response.data.data.id);
+        //                     navigate('/restaurantlist');
+        //                 } else {
+        //                     toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+        //                 }
+        //             } catch (error) {
+        //                 console.error('Error response:', error.response?.data || error.message);
+        //                 toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+        //             } finally {
+        //                 setLoading(false);
+        //             }
+        //         } else {
+        //             toast.error('Mã code không được cung cấp.');
+        //         }
+        //     };
         
-            fetchPointerToken();
-        }, [navigate]); // `useEffect` will trigger only after redirect to the page
+        //     fetchPointerToken();
+        // }, [navigate]); // `useEffect` will trigger only after redirect to the page
         
     return (
         <div className="flex flex-col md:flex-row h-screen">
