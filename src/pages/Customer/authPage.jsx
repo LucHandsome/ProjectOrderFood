@@ -19,7 +19,7 @@ const AuthPage = () => {
                 setLoading(true);
                 try {
                     const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-
+                    
                     console.log("Response from API:", response.data); // Log phản hồi từ API
 
                     if (response.status === 200) {
