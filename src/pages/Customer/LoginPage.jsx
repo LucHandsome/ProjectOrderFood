@@ -40,46 +40,44 @@ const LoginPage = () => {
             const authUrl = `https://sso-pointer.vercel.app/authorize?clientId=${clientId}&redirect_uri=${redirectUri}`;
             console.log('URL xác thực:', authUrl);
             window.location.href = authUrl;
+
+            useEffect(() => {
+                const fetchPointerToken = async () => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const code = urlParams.get('code');
+        
+                    console.log("Code received:", code); // Log mã code để kiểm tra
+        
+                    if (code) {
+                        setLoading(true);
+                        try {
+                            const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
+        
+                            console.log("Response from API:", response.data); // Log phản hồi từ API
+        
+                            if (response.status === 200) {
+                                toast.success('Đăng nhập Pointer thành công!');
+                                localStorage.setItem('token', response.data.token);
+                                localStorage.setItem('customerId', response.data.data.id);
+                                navigate('/restaurantlist');
+                            } else {
+                                toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
+                            }
+                        } catch (error) {
+                            console.error('Error response:', error.response?.data || error.message); // Log chi tiết lỗi
+                            toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
+                        } finally {
+                            setLoading(false);
+                        }
+                    } else {
+                        toast.error('Mã code không được cung cấp.');
+                    }
+                };
+        
+                fetchPointerToken();
+            }, [navigate]);
         };
     
-        useEffect(() => {
-            const fetchPointerToken = async () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
-    
-                console.log("Code received:", code); // Log mã code để kiểm tra
-    
-                if (code) {
-                    setLoading(true);
-                    try {
-                        const response = await axios.post('https://order-app-88-037717b27b20.herokuapp.com/api/customers/sign-in-sso', { code });
-    
-                        console.log("Response from API:", response.data); // Log phản hồi từ API
-    
-                        if (response.status === 200) {
-                            toast.success('Đăng nhập Pointer thành công!');
-                            localStorage.setItem('token', response.data.token);
-                            localStorage.setItem('customerId', response.data.data.id);
-                            navigate('/restaurantlist');
-                        } else {
-                            toast.error(response.data.message || 'Đăng nhập Pointer không thành công.');
-                        }
-                    } catch (error) {
-                        console.error('Error response:', error.response?.data || error.message); // Log chi tiết lỗi
-                        toast.error('Đã xảy ra lỗi khi đăng nhập với Pointer. Vui lòng thử lại.');
-                    } finally {
-                        setLoading(false);
-                    }
-                } else {
-                    toast.error('Mã code không được cung cấp.');
-                }
-            };
-    
-            fetchPointerToken();
-        }, [navigate]);
-    
-    
-
     return (
         <div className="flex flex-col md:flex-row h-screen">
             <div className="md:flex-1 bg-orange-500 flex items-center justify-center p-4 md:p-0">
